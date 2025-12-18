@@ -92,7 +92,7 @@ const TestimonialSection = () => {
             <div className="mb-12 flex w-full justify-between">
                 <div>
                     <p className="text-red-600 font-roboto font-bold mb-2 flex items-center"><div className='h-[10px] w-[10px] bg-red-600 mr-2' /> Crispy, Every Bite Taste</p>
-                    <h2 className="text-5xl font-bebas-neue">POPULAR FOOD ITEMS</h2>
+                    <h2 className="text-5xl font-bebas-neue">What Some of my Customers Say</h2>
                 </div>
 
                 <div>

@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="z-10">
         {/* Heading */}
         <h2 className="text-5xl lg:text-7xl font-bebas-neue text-center mb-8">
-          WE READY TO HAVE YOU THE BEST DINING EXPERIENCES
+          WE READY TO give YOU THE BEST DINING EXPERIENCES
         </h2>
 
         {/* Info Sections */}
