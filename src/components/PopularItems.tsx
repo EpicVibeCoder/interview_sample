@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from 'react';
 import burger2 from '../assets/burger2.png';
 import pizza from '../assets/pizza.png';
@@ -14,10 +15,10 @@ type Item = {
 
 const PopularItems = () => {
   const items: Item[] = [
-    { image: burger2, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
-    { image: pizza, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
-    { image: fries, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
-    { image: chicken, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
+    { image: burger2.src, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
+    { image: pizza.src, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
+    { image: fries.src, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
+    { image: chicken.src, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
   ];
 
   const carouselRef = useRef<CarouselHandle>(null);
@@ -33,7 +34,7 @@ const PopularItems = () => {
   return (
     <section className="py-16 px-[10%] bg-[#FBF7F2] relative">
       <div className="hidden lg:block absolute z-10 left-0 bottom-5">
-        <img src={bell_pepper} alt="" className="h-72" />
+        <img src={bell_pepper.src} alt="" className="h-72" />
       </div>
       {/* Header */}
       <div className="mb-12 flex w-full justify-between">

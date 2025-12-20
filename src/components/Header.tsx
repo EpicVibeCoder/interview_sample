@@ -1,3 +1,5 @@
+"use client";
+import Link from 'next/link';
 import { useState } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Icon from '../assets/icon.svg';
@@ -17,14 +19,14 @@ function Header() {
                     <div className="flex items-center space-x-2 justify-start md:mr-6">
                         {/* SVG Icon */}
                         <div className="w-10 h-10">
-                            <img src={Icon} alt="Restaurant Logo" className="w-full h-full" />
+                            <img src={Icon.src || Icon} alt="Restaurant Logo" className="w-full h-full" />
                         </div>
                         <span className="text-xl font-bold font-poppins ">Restau<span className='font-extralight'>rant</span></span>
                     </div>
 
                     {/* Desktop Navigation Links */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="./" className="hover:text-yellow-300 text-xs font-raleway ">Home</a>
+                        <Link href="/" className="hover:text-yellow-300 text-xs font-raleway ">Home</Link>
                         <a href="#about" className="hover:text-yellow-300 text-xs font-raleway">About</a>
                         <a href="#portfolio" className="hover:text-yellow-300 text-xs font-raleway">Portfolio</a>
                         <a href="#clients" className="hover:text-yellow-300 text-xs font-raleway">Clients</a>

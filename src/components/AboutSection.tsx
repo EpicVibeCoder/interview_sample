@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import burgerImage from "../assets/burger.png";
 import medal from "../assets/medal.svg";
@@ -60,21 +61,21 @@ const AboutSection = () => {
     return (
         <section className="bg-white  flex flex-col lg:p-20 lg:px-[10%] relative">
             <div className="hidden lg:block absolute z-10 right-0 top-1/2 ">
-                <img src={top_bowl} alt="" className="h-72" />
+                <img src={top_bowl.src} alt="" className="h-72" />
             </div>
 
             <div className="flex flex-col lg:flex-row p-4 xs:p-2">
                 {/* Image and Badge */}
                 <div className=" w-full justify-items-center lg:w-1/2 p-2">
                     <div className="relative w-fit h-fit">
-                        <img src={burgerImage} alt="Burger" className="w-[674px]" />
+                        <img src={burgerImage.src} alt="Burger" className="w-[674px]" />
                         <div className="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-lg flex items-center w-[200px] font-semibold font-sans">
                             <div className=" w-[50%]  flex items-center justify-center">
-                                <svg width="w-full" height="h-full" viewBox="0 0 120 120">
-                                    <circle cx="60" cy="60" r="50" stroke="#e6e6e6" stroke-width="5" fill="none" />
-                                    <circle cx="60" cy="60" r="50" stroke="#FEBF00" stroke-width="5" fill="none" stroke-dasharray="314" stroke-dashoffset={314 - (percentage * 314) / 100} stroke-linecap="round" transform="rotate(-90 60 60)" />
-                                    <circle cx="60" cy="10" r="7" fill="white" stroke="#FEBF00" stroke-width="5" transform={`rotate(${(percentage * 360) / 100} 60 60)`} />
-                                    <text x="60" y="70" text-anchor="middle" className="text-3xl font-bold" fill="currentColor">
+                                <svg className="w-full h-full" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="50" stroke="#e6e6e6" strokeWidth="5" fill="none" />
+                                    <circle cx="60" cy="60" r="50" stroke="#FEBF00" strokeWidth="5" fill="none" strokeDasharray="314" strokeDashoffset={314 - (percentage * 314) / 100} strokeLinecap="round" transform="rotate(-90 60 60)" />
+                                    <circle cx="60" cy="10" r="7" fill="white" stroke="#FEBF00" strokeWidth="5" transform={`rotate(${(percentage * 360) / 100} 60 60)`} />
+                                    <text x="60" y="70" textAnchor="middle" className="text-3xl font-bold" fill="currentColor">
                                         50+
                                     </text>
                                 </svg>
@@ -103,9 +104,9 @@ const AboutSection = () => {
             </div>
             {/* Features Section */}
             <div className="flex flex-col lg:flex-row justify-center items-center p-4 lg:py-10 lg:justify-around w-full">
-                <Feature icon={package1} title="Fast Delivery" description="Within 30 minutes" />
-                <Feature icon={medal} title="Absolute Dining" description="Best buffet restaurant" />
-                <Feature icon={bag} title="Pickup Delivery" description="Grab your food order" />
+                <Feature icon={package1.src} title="Fast Delivery" description="Within 30 minutes" />
+                <Feature icon={medal.src} title="Absolute Dining" description="Best buffet restaurant" />
+                <Feature icon={bag.src} title="Pickup Delivery" description="Grab your food order" />
             </div>
         </section>
     );

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 const BookTableSection = () => {
@@ -59,7 +60,7 @@ const BookTableSection = () => {
           <div className="max-w-7xl w-full grid md:grid-cols-2 ">
             {/* Left Section - Form */}
             <div className="space-y-10">
-            <p className="text-red-600 font-roboto mb-2 flex items-center"><div className='h-[10px] w-[10px] bg-red-600 mr-2' /> Book Now</p>
+            <div className="text-red-600 font-roboto mb-2 flex items-center"><div className='h-[10px] w-[10px] bg-red-600 mr-2' /> Book Now</div>
 
               <h2 className="text-4xl lg:text-7xl font-bebas-neue">BOOK YOUR TABLE</h2>
               <p className="text-white text-sm">

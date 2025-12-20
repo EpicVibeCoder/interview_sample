@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import burger2 from '../assets/burger2.png';
 import pizza from '../assets/pizza.png';
@@ -15,10 +16,10 @@ type Item = {
 
 const TestimonialSection = () => {
     const items: Item[] = [
-        { image: burger2, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
-        { image: pizza, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
-        { image: fries, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
-        { image: chicken, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
+    { image: burger2.src, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
+        { image: pizza.src, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
+        { image: fries.src, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
+        { image: chicken.src, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
     ];
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -83,15 +84,15 @@ const TestimonialSection = () => {
     return (
         <section className="py-16 px-[5%] lg:px-[10%] bg-[#FBF7F2] relative">
             <div className="hidden lg:block absolute z-10 left-0 top-10">
-                <img src={fruit} alt="" className="h-72" />
+                <img src={fruit.src} alt="" className="h-72" />
             </div>
             <div className="hidden lg:block absolute z-10 right-0 bottom-5">
-                <img src={grass} alt="" className="h-72" />
+                <img src={grass.src} alt="" className="h-72" />
             </div>
             {/* Header */}
             <div className="mb-12 flex w-full justify-between">
                 <div>
-                    <p className="text-red-600 font-roboto font-bold mb-2 flex items-center"><div className='h-[10px] w-[10px] bg-red-600 mr-2' /> Crispy, Every Bite Taste</p>
+                    <div className="text-red-600 font-roboto font-bold mb-2 flex items-center"><div className='h-[10px] w-[10px] bg-red-600 mr-2' /> Crispy, Every Bite Taste</div>
                     <h2 className="text-5xl font-bebas-neue">What Some of my Customers Say</h2>
                 </div>
 
@@ -123,8 +124,8 @@ const TestimonialSection = () => {
                     }}
                 >
                     {displayItems.map((item, index) => (
-                        <div key={Math.random()+index} style={{ width: `${100 / itemsToShow}%` }} className='flex justify-center'>
-                            <div key={item.description} className={`flex flex-col-reverse lg:flex-row items-center text-center  bg-white ${direction} h-fit`}>
+                        <div key={`${item.title}-${index}`} style={{ width: `${100 / itemsToShow}%` }} className='flex justify-center'>
+                            <div className={`flex flex-col-reverse lg:flex-row items-center text-center  bg-white ${direction} h-fit`}>
                                 
                                     <TestimonialCard
                                         quote="You can't go wrong with Chicken Mandi, I had it twice. The chicken was cooked perfectly, juicy & soft (usually mandi chicken is a bit dry). I would definitely recommend it."
