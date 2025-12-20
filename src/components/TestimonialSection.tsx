@@ -5,7 +5,7 @@ import fries from '../assets/fries.png';
 import chicken from '../assets/chicken.png';
 import fruit from '../assets/fruit.png'
 import grass from '../assets/grass.png'
-import TestimonialCard from './TestimonialCard';
+import TestimonialCard from './ui/TestimonialCard';
 
 type Item = {
     image: string;

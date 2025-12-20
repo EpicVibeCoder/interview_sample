@@ -1,7 +1,7 @@
 
-import profilePic from "../assets/profile.png"
-import sideVertor from "../assets/sideVector.svg"
-import quoteImage from "../assets/quote.svg"
+import profilePic from "../../assets/profile.png"
+import sideVertor from "../../assets/sideVector.svg"
+import quoteImage from "../../assets/quote.svg"
 type TestimonialCardProps = {
   quote: string;
   authorName: string;
