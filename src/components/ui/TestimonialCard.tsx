@@ -36,13 +36,13 @@ const TestimonialCard = ({
             <p className="text-lg font-roboto text-left pl-4">{quote} </p>
           </div>
 
-          <div className="flex items-start justify-between border-b-2 border-b-black z-0 relative h-14 mb-6 lg:mb-0">
+          <div className="flex items-start justify-between border-b-2 border-b-black z-0 relative h-16 mb-6 lg:mb-0">
             <div className="text-left">
               <p className="text-lg font-bebas-neue">{authorName}</p>
               <p className="text-xs font-roboto">{location}</p>
             </div>
             <div className="h-full w-fit  border-b-4 border-b-red-800 z-20 absolute right-0 ">
-              <img src={avatarSrc} alt="Author" className="w-10 h-10 rounded-full " />
+              <img src={avatarSrc} alt="Author" className="w-12 h-12 rounded-full " />
             </div>
           </div>
         </div>

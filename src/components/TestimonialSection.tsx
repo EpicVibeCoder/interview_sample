@@ -203,7 +203,7 @@ const TestimonialSection = () => {
                         ref={carouselRef}
                         items={testimonials}
                         autoPlay={playingIndex === null && isSectionInView}
-                        interval={5000}
+                        interval={3000}
                         pauseOnHover={true}
                         isPaused={playingIndex !== null || !isSectionInView}
                         itemsPerView={1}
