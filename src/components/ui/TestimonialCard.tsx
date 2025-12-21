@@ -1,31 +1,77 @@
-
-import profilePic from "../../assets/profile.png"
 import sideVertor from "../../assets/sideVector.svg"
 import quoteImage from "../../assets/quote.svg"
+import type { StaticImageData } from "next/image";
+
 type TestimonialCardProps = {
   quote: string;
   authorName: string;
   location: string;
+  avatar: string | StaticImageData;
+  videoUrl: string;
+  shouldLoad: boolean;
+  onVideoEnter: () => void;
+  onVideoLeave: () => void;
+  onVideoClick: () => void;
 };
 
-const TestimonialCard = ({ quote, authorName, location }: TestimonialCardProps) => {
+const TestimonialCard = ({ 
+  quote, 
+  authorName, 
+  location, 
+  avatar, 
+  videoUrl, 
+  shouldLoad,
+  onVideoEnter,
+  onVideoLeave,
+  onVideoClick
+}: TestimonialCardProps) => {
+  const avatarSrc = typeof avatar === 'string' ? avatar : avatar.src;
+  
   return (
-    <div className="flex flex-col justify-between w-full bg-yellow-500 border-2 px-[9%] lg:px-[10%] py-[10%] relative text-gray-800 h-[335px] lg:h-[555px] ">
-      <img src={typeof sideVertor === 'string' ? sideVertor : sideVertor.src} alt="" className="lg:block absolute left-0 bottom-0 lg:bottom-10 w-8" />
-      <div className="w-full">
-        <img src={typeof quoteImage === 'string' ? quoteImage : quoteImage.src} alt="" className="h-4 w-4" />
-        <p className="text-lg font-roboto text-left pl-4">{quote} </p>
+    <div className="flex flex-col-reverse lg:flex-row items-stretch text-center bg-white h-fit w-full max-w-7xl mx-auto">
+      {/* Card Content */}
+      <div className="w-full lg:w-[45%] flex-shrink-0">
+        <div className="flex flex-col justify-between w-full bg-yellow-500 border-2 px-[9%] lg:px-[10%] py-[10%] relative text-gray-800 h-[335px] lg:h-[555px] ">
+          <img src={typeof sideVertor === 'string' ? sideVertor : sideVertor.src} alt="" className="lg:block absolute left-0 bottom-0 lg:bottom-10 w-8" />
+          <div className="w-full">
+            <img src={typeof quoteImage === 'string' ? quoteImage : quoteImage.src} alt="" className="h-4 w-4" />
+            <p className="text-lg font-roboto text-left pl-4">{quote} </p>
+          </div>
+
+          <div className="flex items-start justify-between border-b-2 border-b-black z-0 relative h-14 mb-6 lg:mb-0">
+            <div className="text-left">
+              <p className="text-lg font-bebas-neue">{authorName}</p>
+              <p className="text-xs font-roboto">{location}</p>
+            </div>
+            <div className="h-full w-fit  border-b-4 border-b-red-800 z-20 absolute right-0 ">
+              <img src={avatarSrc} alt="Author" className="w-10 h-10 rounded-full " />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex items-start justify-between border-b-2 border-b-black z-0 relative h-14 mb-6 lg:mb-0">
-        <div className="text-left">
-          <p className="text-lg font-bebas-neue">{authorName}</p>
-          <p className="text-xs font-roboto">{location}</p>
-        </div>
-        <div className="h-full w-fit  border-b-4 border-b-red-800 z-20 absolute right-0 ">
-          <img src={typeof profilePic === 'string' ? profilePic : profilePic.src} alt="Author" className="w-10 h-10 rounded-full " />
-        </div>
-
+      {/* Video Container */}
+      <div 
+        className="w-full lg:w-[55%] h-[335px] lg:h-[555px] flex-shrink-0 relative bg-gray-100"
+        onMouseEnter={onVideoEnter}
+        onMouseLeave={onVideoLeave}
+        onClick={onVideoClick}
+        onFocus={onVideoEnter}
+      >
+        {shouldLoad ? (
+          <iframe
+            className="w-full h-full"
+            src={videoUrl}
+            title="Customer Testimonial"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-100">
+            <div className="text-gray-400 text-sm">Loading video...</div>
+          </div>
+        )}
       </div>
     </div>
   );
