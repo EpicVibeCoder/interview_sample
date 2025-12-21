@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import "../index.css";
+import icon from "../assets/icon.svg";
 
 export const metadata: Metadata = {
-  title: "Vite + React + TS",
-  description: "Migrated to Next.js",
+  title: "Generic Restaurant",
+  description: "Experience authentic cuisine at Generic Restaurant",
+  icons: {
+    icon: icon.src || icon,
+  },
 };
 
 export default function RootLayout({

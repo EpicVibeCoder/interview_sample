@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import burger2 from '../assets/burger2.png';
 import pizza from '../assets/pizza.png';
 import fries from '../assets/fries.png';
@@ -14,6 +14,8 @@ type Item = {
 };
 
 const PopularItems = () => {
+  const [itemsPerView, setItemsPerView] = useState(4);
+  
   const items: Item[] = [
     { image: burger2.src, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
     { image: pizza.src, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
@@ -22,6 +24,16 @@ const PopularItems = () => {
   ];
 
   const carouselRef = useRef<CarouselHandle>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerView(window.innerWidth < 1024 ? 1 : 4);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const goToNext = () => {
     carouselRef.current?.next();
@@ -67,7 +79,7 @@ const PopularItems = () => {
       <Carousel
         ref={carouselRef}
         items={items}
-        // Note: Component handles resize internally for now
+        itemsPerView={itemsPerView}
         renderItem={(item) => (
           <div className='flex justify-center h-full px-2'>
             <div className={`flex flex-col items-center text-center p-6 bg-white w-full h-full`}>

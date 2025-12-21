@@ -19,7 +19,7 @@ function Header() {
                     <div className="flex items-center space-x-2 justify-start md:mr-6">
                         {/* SVG Icon */}
                         <div className="w-10 h-10">
-                            <img src={Icon.src || Icon} alt="Restaurant Logo" className="w-full h-full" />
+                            <img src={typeof Icon === 'string' ? Icon : Icon.src} alt="Restaurant Logo" className="w-full h-full" />
                         </div>
                         <span className="text-xl font-bold font-poppins ">Restau<span className='font-extralight'>rant</span></span>
                     </div>

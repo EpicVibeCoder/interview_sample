@@ -22,11 +22,17 @@ type CarouselProps<T> = {
     /** Array of items to display in the carousel */
     items: T[];
     /** Function to render each item */
-    renderItem: (item: T) => ReactNode;
+    renderItem: (item: T, index?: number) => ReactNode;
+    /** Number of items to show per view (required) */
+    itemsPerView: number;
     /** Enable auto-play functionality (default: true) */
     autoPlay?: boolean;
     /** Auto-play interval in milliseconds (default: 3000) */
     interval?: number;
+    /** Pause autoplay on hover (default: false) */
+    pauseOnHover?: boolean;
+    /** External control to pause autoplay */
+    isPaused?: boolean;
 };
 
 // ============================================================================
@@ -68,7 +74,7 @@ const DESKTOP_ITEMS_TO_SHOW = 4;
  * When the user scrolls to the edges, it silently jumps back to the middle
  * without animation, creating a seamless loop.
  */
-const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, renderItem, autoPlay = true, interval = 3000 }, ref) => {
+const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, renderItem, itemsPerView, autoPlay = true, interval = 3000, pauseOnHover = false, isPaused = false }, ref) => {
     // ========================================================================
     // COMPUTED VALUES (Infinite Scroll Clones Logic)
     // ========================================================================
@@ -131,14 +137,17 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
     // STATE
     // ========================================================================
 
-    /** Number of items visible per screen (responsive: 1 on mobile, 4 on desktop) */
-    const [itemsToShow, setItemsToShow] = useState(DESKTOP_ITEMS_TO_SHOW);
+    /** Number of items visible per screen (set from itemsPerView prop) */
+    const [itemsToShow, setItemsToShow] = useState(itemsPerView);
 
     /** Current position index in the track (controls translateX) */
     const [trackIndex, setTrackIndex] = useState(START_INDEX);
 
     /** Whether CSS transitions are enabled (false = instant jump, true = smooth slide) */
     const [animate, setAnimate] = useState(true);
+
+    /** Whether the carousel is currently hovered (for pause on hover) */
+    const [isHovered, setIsHovered] = useState(false);
 
     /** Touch start position for swipe gesture detection */
     const touchStartX = useRef<number | null>(null);
@@ -258,20 +267,12 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
     // ========================================================================
 
     /**
-     * Handle responsive behavior: adjust itemsToShow based on screen width.
-     * - Mobile (< 1024px): Show 1 item
-     * - Desktop (>= 1024px): Show 4 items
+     * Set itemsToShow based on itemsPerView prop.
+     * itemsPerView is required and always used.
      */
     useEffect(() => {
-        const handleResize = () => {
-            const isMobile = window.innerWidth < RESPONSIVE_BREAKPOINT;
-            setItemsToShow(isMobile ? MOBILE_ITEMS_TO_SHOW : DESKTOP_ITEMS_TO_SHOW);
-        };
-
-        handleResize(); // Check on mount
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+        setItemsToShow(itemsPerView);
+    }, [itemsPerView]);
 
     /**
      * Reset track position when itemsToShow or items change (e.g., window resize or data update).
@@ -284,14 +285,14 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
 
     /**
      * Auto-play: automatically advance to next item at specified interval.
-     * Pauses if autoPlay is disabled or if user manually interacts (trackIndex changes).
+     * Pauses if autoPlay is disabled, if hovered (and pauseOnHover is true), or if externally paused.
      */
     useEffect(() => {
-        if (!autoPlay) return;
+        if (!autoPlay || isPaused || (pauseOnHover && isHovered)) return;
 
         const intervalId = setInterval(handleNext, interval);
         return () => clearInterval(intervalId);
-    }, [autoPlay, interval, trackIndex]);
+    }, [autoPlay, interval, trackIndex, pauseOnHover, isHovered, isPaused]);
 
     /**
      * Expose navigation methods to parent component via ref.
@@ -330,7 +331,14 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
     const trackWidthPercent = (itemsToRender.length / itemsToShow) * 100;
 
     return (
-        <div className="relative overflow-hidden w-full touch-pan-y" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+        <div 
+            className="relative overflow-hidden w-full touch-pan-y" 
+            onTouchStart={handleTouchStart} 
+            onTouchMove={handleTouchMove} 
+            onTouchEnd={handleTouchEnd}
+            onMouseEnter={() => pauseOnHover && setIsHovered(true)}
+            onMouseLeave={() => pauseOnHover && setIsHovered(false)}
+        >
             <div
                 className="flex"
                 onTransitionEnd={handleTransitionEnd}
@@ -340,11 +348,15 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
                     width: `${trackWidthPercent}%`,
                 }}
             >
-                {itemsToRender.map((item: any, index: number) => (
-                    <div key={index} style={{ width: `${itemWidthPercent}%` }} className="flex-shrink-0">
-                        {renderItem(item)}
-                    </div>
-                ))}
+                {itemsToRender.map((item: any, index: number) => {
+                    // Calculate the actual item index (modulo to get original item index)
+                    const actualIndex = index % items.length;
+                    return (
+                        <div key={index} style={{ width: `${itemWidthPercent}%` }} className="flex-shrink-0">
+                            {renderItem(item, actualIndex)}
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
