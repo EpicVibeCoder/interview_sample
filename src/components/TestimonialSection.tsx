@@ -21,11 +21,14 @@ type TestimonialItem = {
 
 const TestimonialSection = () => {
       const [currentIndex, setCurrentIndex] = useState(0);
-      const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+      // IMPORTANT: this must be clone-aware (Carousel renders many cloned copies)
+      // so we track the unique "render index" of the currently visible clone.
+      const [playingRenderIndex, setPlayingRenderIndex] = useState<number | null>(null);
       const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set([0, 1])); // Preload first 2 videos
       const carouselRef = useRef<CarouselHandle>(null);
       const sectionRef = useRef<HTMLElement | null>(null);
       const [isSectionInView, setIsSectionInView] = useState(true);
+      const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
 
       // Testimonials data array - easily extensible
       const testimonials: TestimonialItem[] = [
@@ -90,7 +93,7 @@ const TestimonialSection = () => {
       }, [currentIndex, testimonials.length]);
 
       const stopVideo = useCallback(() => {
-            setPlayingIndex(null);
+            setPlayingRenderIndex(null);
       }, []);
 
       const goToNext = () => {
@@ -130,16 +133,17 @@ const TestimonialSection = () => {
 
       // Stop the video if the slide changes (e.g., swipe) while a video is playing
       useEffect(() => {
-            if (playingIndex === null) return;
-            if (currentIndex !== playingIndex) stopVideo();
-      }, [currentIndex, playingIndex, stopVideo]);
+            if (playingRenderIndex === null) return;
+            // When the carousel advances, the visible clone changes even if the logical item repeats.
+            if (currentTrackIndex !== playingRenderIndex) stopVideo();
+      }, [currentTrackIndex, playingRenderIndex, stopVideo]);
 
       // Stop the video if the whole section scrolls out of view
       useEffect(() => {
-            if (!isSectionInView && playingIndex !== null) {
+            if (!isSectionInView && playingRenderIndex !== null) {
                   stopVideo();
             }
-      }, [isSectionInView, playingIndex, stopVideo]);
+      }, [isSectionInView, playingRenderIndex, stopVideo]);
 
       // Stop the video when the whole section scrolls out of view
       useEffect(() => {
@@ -202,18 +206,22 @@ const TestimonialSection = () => {
                   <Carousel
                         ref={carouselRef}
                         items={testimonials}
-                        autoPlay={playingIndex === null && isSectionInView}
+                        autoPlay={playingRenderIndex === null && isSectionInView}
                         interval={3000}
                         pauseOnHover={true}
-                        isPaused={playingIndex !== null || !isSectionInView}
+                        isPaused={playingRenderIndex !== null || !isSectionInView}
                         itemsPerView={1}
                         onIndexChange={(index) => {
                               setCurrentIndex(index);
                         }}
-                        renderItem={(testimonial, index) => {
-                              const videoIndex = index ?? 0;
-                              const isPlaying = playingIndex === videoIndex;
-                              const shouldLoad = isPlaying || loadedVideos.has(videoIndex);
+                        onTrackIndexChange={(trackIndex) => {
+                              setCurrentTrackIndex(trackIndex);
+                        }}
+                        renderItem={(testimonial, logicalIndex, renderIndex) => {
+                              const safeLogicalIndex = logicalIndex ?? 0;
+                              const safeRenderIndex = renderIndex ?? 0;
+                              const isPlaying = playingRenderIndex === safeRenderIndex;
+                              const shouldLoad = isPlaying || loadedVideos.has(safeLogicalIndex);
 
                               return (
                                     <div className="flex justify-center h-full px-2">
@@ -226,8 +234,8 @@ const TestimonialSection = () => {
                                                 isPlaying={isPlaying}
                                                 videoSrc={buildYoutubeEmbedSrc(testimonial.videoUrl)}
                                                 onPlay={() => {
-                                                      loadVideo(videoIndex);
-                                                      setPlayingIndex(videoIndex);
+                                                      loadVideo(safeLogicalIndex);
+                                                      setPlayingRenderIndex(safeRenderIndex);
                                                 }}
                                           />
                                     </div>

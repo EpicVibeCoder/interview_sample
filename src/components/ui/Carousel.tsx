@@ -22,7 +22,7 @@ type CarouselProps<T> = {
     /** Array of items to display in the carousel */
     items: T[];
     /** Function to render each item */
-    renderItem: (item: T, index?: number) => ReactNode;
+    renderItem: (item: T, index?: number, renderIndex?: number) => ReactNode;
     /** Number of items to show per view (required) */
     itemsPerView: number;
     /** Enable auto-play functionality (default: true) */
@@ -35,6 +35,8 @@ type CarouselProps<T> = {
     isPaused?: boolean;
     /** Notify parent when the active (logical) item index changes */
     onIndexChange?: (index: number) => void;
+    /** Notify parent when the internal track index (clone-aware) changes */
+    onTrackIndexChange?: (trackIndex: number) => void;
 };
 
 // ============================================================================
@@ -77,7 +79,7 @@ const DESKTOP_ITEMS_TO_SHOW = 4;
  * without animation, creating a seamless loop.
  */
 const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(
-    ({ items, renderItem, itemsPerView, autoPlay = true, interval = 3000, pauseOnHover = false, isPaused = false, onIndexChange }, ref) => {
+    ({ items, renderItem, itemsPerView, autoPlay = true, interval = 3000, pauseOnHover = false, isPaused = false, onIndexChange, onTrackIndexChange }, ref) => {
     // ========================================================================
     // COMPUTED VALUES (Infinite Scroll Clones Logic)
     // ========================================================================
@@ -297,6 +299,15 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(
     }, [onIndexChange, trackIndex, items.length, START_INDEX]);
 
     /**
+     * Notify parent of the clone-aware track index.
+     * Useful when the parent needs a stable identifier for the currently visible clone.
+     */
+    useEffect(() => {
+        if (!onTrackIndexChange) return;
+        onTrackIndexChange(trackIndex);
+    }, [onTrackIndexChange, trackIndex]);
+
+    /**
      * Auto-play: automatically advance to next item at specified interval.
      * Pauses if autoPlay is disabled, if hovered (and pauseOnHover is true), or if externally paused.
      */
@@ -366,7 +377,7 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(
                     const actualIndex = index % items.length;
                     return (
                         <div key={index} style={{ width: `${itemWidthPercent}%` }} className="flex-shrink-0">
-                            {renderItem(item, actualIndex)}
+                            {renderItem(item, actualIndex, index)}
                         </div>
                     );
                 })}
