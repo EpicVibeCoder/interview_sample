@@ -33,6 +33,8 @@ type CarouselProps<T> = {
     pauseOnHover?: boolean;
     /** External control to pause autoplay */
     isPaused?: boolean;
+    /** Notify parent when the active (logical) item index changes */
+    onIndexChange?: (index: number) => void;
 };
 
 // ============================================================================
@@ -74,7 +76,8 @@ const DESKTOP_ITEMS_TO_SHOW = 4;
  * When the user scrolls to the edges, it silently jumps back to the middle
  * without animation, creating a seamless loop.
  */
-const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, renderItem, itemsPerView, autoPlay = true, interval = 3000, pauseOnHover = false, isPaused = false }, ref) => {
+const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(
+    ({ items, renderItem, itemsPerView, autoPlay = true, interval = 3000, pauseOnHover = false, isPaused = false, onIndexChange }, ref) => {
     // ========================================================================
     // COMPUTED VALUES (Infinite Scroll Clones Logic)
     // ========================================================================
@@ -284,6 +287,16 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
     }, [itemsToShow, items.length, CLONE_SETS]);
 
     /**
+     * Notify parent of the current logical index (0..items.length-1).
+     * This stays correct even with clone sets and track resets.
+     */
+    useEffect(() => {
+        if (!onIndexChange || items.length === 0) return;
+        const relativeOffset = (((trackIndex - START_INDEX) % items.length) + items.length) % items.length;
+        onIndexChange(relativeOffset);
+    }, [onIndexChange, trackIndex, items.length, START_INDEX]);
+
+    /**
      * Auto-play: automatically advance to next item at specified interval.
      * Pauses if autoPlay is disabled, if hovered (and pauseOnHover is true), or if externally paused.
      */
@@ -360,7 +373,8 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(({ items, render
             </div>
         </div>
     );
-});
+    }
+);
 
 Carousel.displayName = "Carousel";
 

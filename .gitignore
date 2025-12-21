@@ -66,3 +66,7 @@ Thumbs.db
 # Cache
 .cache
 .parcel-cache
+
+# Prettier (local formatting preferences)
+.prettierrc
+.prettierrc.*

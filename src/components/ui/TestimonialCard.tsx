@@ -7,11 +7,10 @@ type TestimonialCardProps = {
   authorName: string;
   location: string;
   avatar: string | StaticImageData;
-  videoUrl: string;
   shouldLoad: boolean;
-  onVideoEnter: () => void;
-  onVideoLeave: () => void;
-  onVideoClick: () => void;
+  isPlaying: boolean;
+  videoSrc: string;
+  onPlay: () => void;
 };
 
 const TestimonialCard = ({ 
@@ -19,11 +18,10 @@ const TestimonialCard = ({
   authorName, 
   location, 
   avatar, 
-  videoUrl, 
   shouldLoad,
-  onVideoEnter,
-  onVideoLeave,
-  onVideoClick
+  isPlaying,
+  videoSrc,
+  onPlay
 }: TestimonialCardProps) => {
   const avatarSrc = typeof avatar === 'string' ? avatar : avatar.src;
   
@@ -53,24 +51,30 @@ const TestimonialCard = ({
       {/* Video Container */}
       <div 
         className="w-full lg:w-[55%] h-[335px] lg:h-[555px] flex-shrink-0 relative bg-gray-100"
-        onMouseEnter={onVideoEnter}
-        onMouseLeave={onVideoLeave}
-        onClick={onVideoClick}
-        onFocus={onVideoEnter}
       >
-        {shouldLoad ? (
+        {shouldLoad && isPlaying ? (
           <iframe
             className="w-full h-full"
-            src={videoUrl}
+            src={videoSrc}
             title="Customer Testimonial"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100">
-            <div className="text-gray-400 text-sm">Loading video...</div>
-          </div>
+          <button
+            type="button"
+            onClick={onPlay}
+            className="w-full h-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors"
+            aria-label="Play testimonial video"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-14 h-14 rounded-full bg-white shadow flex items-center justify-center text-2xl">
+                ▶
+              </div>
+              <div className="text-gray-500 text-sm">{shouldLoad ? "Click to play" : "Loading..."}</div>
+            </div>
+          </button>
         )}
       </div>
     </div>
