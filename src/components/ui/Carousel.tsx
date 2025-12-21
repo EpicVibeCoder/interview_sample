@@ -319,6 +319,15 @@ const Carousel = forwardRef<CarouselHandle, CarouselProps<any>>(
     }, [autoPlay, interval, trackIndex, pauseOnHover, isHovered, isPaused]);
 
     /**
+     * If the carousel is programmatically disabled (e.g. section scrolled out of view),
+     * we may never receive a mouseleave to clear hover state. Reset it so autoplay can
+     * resume cleanly when re-enabled.
+     */
+    useEffect(() => {
+        if (!autoPlay) setIsHovered(false);
+    }, [autoPlay]);
+
+    /**
      * Expose navigation methods to parent component via ref.
      * Allows parent to programmatically control the carousel.
      */
