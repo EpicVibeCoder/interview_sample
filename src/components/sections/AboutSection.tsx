@@ -73,8 +73,8 @@ const AboutSection = () => {
       <div className="flex flex-col lg:flex-row p-4 xs:p-2">
         {/* Image and Badge */}
         <div className=" w-full justify-items-center lg:w-1/2 p-2">
-          <div className="relative w-fit h-fit">
-            <img src={burgerImage.src} alt="Burger" className="w-[674px]" />
+          <div className="relative w-full max-w-[674px]">
+            <img src={burgerImage.src} alt="Burger" className="block w-full h-auto" />
             <div className="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-lg flex items-center w-[200px] font-semibold font-sans">
               <div className=" w-[50%]  flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 120 120">

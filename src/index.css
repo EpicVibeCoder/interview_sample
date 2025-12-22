@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent accidental horizontal overflow (e.g. wide images) from creating a white gutter on mobile. */
+html,
+body {
+  overflow-x: hidden;
+}
+
 /* Hide the default calendar icon so our custom icon is the only one shown. */
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
