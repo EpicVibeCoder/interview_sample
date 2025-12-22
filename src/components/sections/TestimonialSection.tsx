@@ -148,17 +148,23 @@ const TestimonialSection = () => {
   useEffect(() => {
     if (playingRenderIndex === null) return;
     // When the carousel advances, the visible clone changes even if the logical item repeats.
-    if (currentTrackIndex !== playingRenderIndex) stopVideo();
+    if (currentTrackIndex !== playingRenderIndex) {
+      // Avoid a synchronous state update inside an effect body (ESLint react-hooks/set-state-in-effect).
+      const id = window.setTimeout(stopVideo, 0);
+      return () => window.clearTimeout(id);
+    }
   }, [currentTrackIndex, playingRenderIndex, stopVideo]);
 
   // Stop the video if the whole section scrolls out of view
   useEffect(() => {
     if (!isSectionInView && playingRenderIndex !== null) {
-      stopVideo();
+      // Same rationale as above: schedule the state update.
+      const id = window.setTimeout(stopVideo, 0);
+      return () => window.clearTimeout(id);
     }
   }, [isSectionInView, playingRenderIndex, stopVideo]);
 
-  // Stop the video when the whole section scrolls out of view
+  // Track whether the section is in view (used to pause autoplay / stop video)
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return;
@@ -177,7 +183,7 @@ const TestimonialSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 px-[5%] lg:px-[10%] bg-[#FBF7F2] relative">
+    <section id="testimonials" ref={sectionRef} className="py-16 px-[5%] lg:px-[10%] bg-[#FBF7F2] relative">
       <div className="hidden lg:block absolute z-10 left-0 top-10">
         <img src={typeof fruit === "string" ? fruit : fruit.src} alt="" className="h-72" />
       </div>

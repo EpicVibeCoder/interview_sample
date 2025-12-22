@@ -44,14 +44,11 @@ function Header() {
             <a href="#about" className="hover:text-yellow-300 text-xs font-raleway">
               About
             </a>
-            <a href="#portfolio" className="hover:text-yellow-300 text-xs font-raleway">
-              Portfolio
+            <a href="#menu" className="hover:text-yellow-300 text-xs font-raleway">
+              Menu
             </a>
-            <a href="#clients" className="hover:text-yellow-300 text-xs font-raleway">
-              Clients
-            </a>
-            <a href="#blog" className="hover:text-yellow-300 text-xs font-raleway">
-              Blog
+            <a href="#testimonials" className="hover:text-yellow-300 text-xs font-raleway">
+              Testimonials
             </a>
             <a href="#contact" className="hover:text-yellow-300 text-xs font-raleway">
               Contact

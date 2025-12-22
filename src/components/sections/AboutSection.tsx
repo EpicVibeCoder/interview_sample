@@ -57,7 +57,7 @@ const AboutSection = () => {
     Contact: (
       <div>
         <h2 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">Contact Us</h2>
-        <p className="text-gray-600 mb-4 leading-relaxed">We'd love to hear from you! Reach out with any questions, comments, or feedback.</p>
+        <p className="text-gray-600 mb-4 leading-relaxed">We&apos;d love to hear from you! Reach out with any questions, comments, or feedback.</p>
         <p className="text-gray-600">Email: support@foodexperience.com</p>
         <p className="text-gray-600">Phone: +88 3426 739 485</p>
       </div>
@@ -65,7 +65,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section className="bg-white  flex flex-col lg:p-20 lg:px-[10%] relative">
+    <section id="about" className="bg-white  flex flex-col lg:p-20 lg:px-[10%] relative">
       <div className="hidden lg:block absolute z-10 right-0 top-1/2 ">
         <img src={top_bowl.src} alt="" className="h-72" />
       </div>
@@ -147,7 +147,7 @@ function Feature({ icon, title, description }: FeatureProps) {
       <div className="flex items-center justify-center w-[70px] h-[70px] bg-white shadow-lg rounded-full p-4 mr-4">
         <img src={icon} alt="" />
       </div>
-      <div className="felx content-center">
+      <div className="flex content-center">
         <h4 className=" text-gray-900 text-3xl font-bebas-neue">{title}</h4>
         <span className="text-gray-500 text-sm font-inter">{description}</span>
       </div>

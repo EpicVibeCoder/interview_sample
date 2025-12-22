@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "../index.css";
-import icon from "../assets/icon.svg";
+import icon from "@/assets/icon.svg";
 
 export const metadata: Metadata = {
   title: "Generic Restaurant",
   description: "Experience authentic cuisine at Generic Restaurant",
   icons: {
-    icon: icon.src || icon,
+    icon: typeof icon === "string" ? icon : icon.src,
   },
 };
 

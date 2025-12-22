@@ -16,7 +16,7 @@ export type CarouselHandle = {
 
 /**
  * Props for the Carousel component.
- *he type of items in the carousel
+ * The type of items in the carousel.
  */
 type CarouselProps<T> = {
     /** Array of items to display in the carousel */
@@ -49,14 +49,6 @@ type CarouselProps<T> = {
  * without running out of buffer space.
  */
 const MIN_BUFFER_ITEMS = 50;
-
-/**
- * Breakpoint width (in pixels) for responsive behavior.
- * Below this width, show 1 item; above, show 4 items.
- */
-const RESPONSIVE_BREAKPOINT = 1024;
-const MOBILE_ITEMS_TO_SHOW = 1;
-const DESKTOP_ITEMS_TO_SHOW = 4;
 
 // ============================================================================
 // COMPONENT

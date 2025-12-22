@@ -62,7 +62,7 @@ const BookTableSection = () => {
   };
 
   return (
-    <section className="flex items-start justify-center bg-[url('./assets/fork.jpeg')] bg-cover bg-center lg:bg-top text-white py-16 px-8 lg:h-[788px]">
+    <section id="contact" className="flex items-start justify-center bg-[url('./assets/fork.jpeg')] bg-cover bg-center lg:bg-top text-white py-16 px-8 lg:h-[788px]">
       <div className="max-w-7xl w-full grid md:grid-cols-2 ">
         {/* Left Section - Form */}
         <div className="space-y-10">

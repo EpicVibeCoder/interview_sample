@@ -50,7 +50,7 @@ const PopularItems = () => {
   };
 
   return (
-    <section className="py-16 px-[10%] bg-[#FBF7F2] relative">
+    <section id="menu" className="py-16 px-[10%] bg-[#FBF7F2] relative">
       <div className="hidden lg:block absolute z-10 left-0 bottom-5">
         <img src={bell_pepper.src} alt="" className="h-72" />
       </div>

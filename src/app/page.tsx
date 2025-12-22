@@ -7,11 +7,11 @@ import {
   HeroSection,
   PopularItems,
   TestimonialSection,
-} from "../components";
+} from "@/components";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Header />
       <HeroSection />
       <AboutSection />
@@ -20,6 +20,6 @@ export default function Home() {
       <TestimonialSection />
       <Footer />
       <SpeedInsights />
-    </div>
-  )
+    </>
+  );
 }

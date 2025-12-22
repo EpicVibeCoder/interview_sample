@@ -1,6 +1,6 @@
 # Restaurant App
 
-This app is created in **Next.js + React + TypeScript**.
+This app is built with **Next.js (App Router) + React + TypeScript + Tailwind CSS**.
 
 **Live Demo:** [Link to the live project](https://interview-sample.vercel.app)  
 
@@ -9,6 +9,13 @@ This app is created in **Next.js + React + TypeScript**.
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
 3. Start the app with `npm run dev`.
+
+## Scripts
+
+- `npm run dev`: start the development server
+- `npm run build`: create a production build
+- `npm run start`: run the production server (after `build`)
+- `npm run lint`: run ESLint
 
 ## Project structure (src/)
 
@@ -19,3 +26,7 @@ This app is created in **Next.js + React + TypeScript**.
   - **`ui/`**: reusable low-level UI blocks (e.g. `Carousel`)
 - **`src/assets/`**: local images/icons used by components.
 - **`src/types/`**: shared TypeScript declarations (e.g. static asset modules).
+
+## Notes
+
+- The home page uses hash anchors (`#about`, `#menu`, `#testimonials`, `#contact`) for quick navigation.

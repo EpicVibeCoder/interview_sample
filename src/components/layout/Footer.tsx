@@ -36,7 +36,7 @@ const Footer = () => {
           {/* Let's Talk */}
           <div className="flex flex-col justify-center items-center gap-3">
             <img alt="" src={call.src} className="h-8 w-8" />
-            <h3 className="text-3xl font-bebas-neue">LET'S TALK</h3>
+            <h3 className="text-3xl font-bebas-neue">LET&apos;S TALK</h3>
             <p className="font-roboto">Phone: 1-800-222-4545</p>
             <p className="font-roboto">Fax: 1-800-222-4545</p>
           </div>
