@@ -144,6 +144,38 @@ const TestimonialSection = () => {
     }
   }, []);
 
+  const getYoutubeId = useCallback((url: string) => {
+    try {
+      const u = new URL(url);
+
+      // Common formats:
+      // - https://www.youtube.com/embed/<id>
+      // - https://www.youtube.com/watch?v=<id>
+      // - https://youtu.be/<id>
+      const embedMatch = u.pathname.match(/\/embed\/([^/?#]+)/);
+      if (embedMatch?.[1]) return embedMatch[1];
+
+      const shortMatch = u.hostname.includes("youtu.be") ? u.pathname.replace("/", "") : null;
+      if (shortMatch) return shortMatch;
+
+      const v = u.searchParams.get("v");
+      if (v) return v;
+    } catch {
+      // Fallthrough: allow simple string parsing
+      const embedMatch = url.match(/\/embed\/([^/?#]+)/);
+      if (embedMatch?.[1]) return embedMatch[1];
+    }
+    return null;
+  }, []);
+
+  const getYoutubeThumbnail = useCallback(
+    (url: string) => {
+      const id = getYoutubeId(url);
+      return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : null;
+    },
+    [getYoutubeId]
+  );
+
   // Stop the video if the slide changes (e.g., swipe) while a video is playing
   useEffect(() => {
     if (playingRenderIndex === null) return;
@@ -252,6 +284,7 @@ const TestimonialSection = () => {
                 shouldLoad={shouldLoad}
                 isPlaying={isPlaying}
                 videoSrc={buildYoutubeEmbedSrc(testimonial.videoUrl)}
+                videoThumbnailSrc={getYoutubeThumbnail(testimonial.videoUrl) ?? undefined}
                 onPlay={() => {
                   loadVideo(safeLogicalIndex);
                   setPlayingRenderIndex(safeRenderIndex);

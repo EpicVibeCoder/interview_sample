@@ -10,10 +10,11 @@ type TestimonialCardProps = {
       shouldLoad: boolean;
       isPlaying: boolean;
       videoSrc: string;
+      videoThumbnailSrc?: string;
       onPlay: () => void;
 };
 
-const TestimonialCard = ({ quote, authorName, location, avatar, shouldLoad, isPlaying, videoSrc, onPlay }: TestimonialCardProps) => {
+const TestimonialCard = ({ quote, authorName, location, avatar, shouldLoad, isPlaying, videoSrc, videoThumbnailSrc, onPlay }: TestimonialCardProps) => {
       const avatarSrc = typeof avatar === "string" ? avatar : avatar.src;
 
       return (
@@ -54,12 +55,23 @@ const TestimonialCard = ({ quote, authorName, location, avatar, shouldLoad, isPl
                               <button
                                     type="button"
                                     onClick={onPlay}
-                                    className="w-full h-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors"
+                                    className="w-full h-full flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-colors relative overflow-hidden"
                                     aria-label="Play testimonial video"
                               >
+                                    {videoThumbnailSrc ? (
+                                          <img
+                                                src={videoThumbnailSrc}
+                                                alt="Video preview"
+                                                className="absolute inset-0 w-full h-full object-cover"
+                                                loading="lazy"
+                                          />
+                                    ) : null}
+                                    {/* Subtle dark overlay to ensure play button contrast */}
+                                    <div className="absolute inset-0 bg-black/30" aria-hidden="true" />
+
                                     <div className="flex flex-col items-center gap-2">
-                                          <div className="w-14 h-14 rounded-full bg-white shadow flex items-center justify-center text-2xl">▶</div>
-                                          <div className="text-gray-500 text-sm">{shouldLoad ? "Click to play" : "Loading..."}</div>
+                                          <div className="w-14 h-14 rounded-full bg-white/95 shadow flex items-center justify-center text-2xl relative">▶</div>
+                                          <div className="text-white text-sm relative">{shouldLoad ? "Click to play" : "Loading..."}</div>
                                     </div>
                               </button>
                         )}
