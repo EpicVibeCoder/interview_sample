@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "../../assets/icon.svg";
 
 function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -27,13 +27,40 @@ function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
  */
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        setIsScrolled(window.scrollY > 10);
+      });
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // Solid background once the user starts scrolling; transparent at the very top.
+  // Keep solid while the mobile menu is open so the menu remains readable.
+  const solidBg = isOpen || isScrolled;
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50  text-white p-4 font-raleway">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 text-white p-4 font-raleway transition-colors duration-300 ${
+        solidBg ? "bg-[#bd1f17f2]" : "bg-transparent"
+      }`}
+    >
       <nav className="flex justify-between items-center md:justify-around">
         <div className="flex items-center">
           {/* Logo */}
