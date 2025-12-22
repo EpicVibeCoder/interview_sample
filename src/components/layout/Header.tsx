@@ -80,9 +80,9 @@ function Header() {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex space-x-6">
-            <Link href="/" className="hover:text-yellow-300 text-xs font-raleway ">
+            <a href="#hero" className="hover:text-yellow-300 text-xs font-raleway ">
               Home
-            </Link>
+            </a>
             <a href="#about" className="hover:text-yellow-300 text-xs font-raleway">
               About
             </a>
@@ -92,7 +92,7 @@ function Header() {
             <a href="#testimonials" className="hover:text-yellow-300 text-xs font-raleway">
               Testimonials
             </a>
-            <a href="#contact" className="hover:text-yellow-300 text-xs font-raleway">
+            <a href="#footer" className="hover:text-yellow-300 text-xs font-raleway">
               Contact
             </a>
           </div>
@@ -125,6 +125,11 @@ function Header() {
         <div className="md:hidden bg-red-700 text-white py-4">
           <ul className="space-y-4 px-4">
             <li>
+              <a href="#hero" className="block hover:text-yellow-300">
+                Home
+              </a>
+            </li>
+            <li>
               <a href="#about" className="block hover:text-yellow-300">
                 About
               </a>
@@ -140,7 +145,7 @@ function Header() {
               </a>
             </li>
             <li>
-              <a href="#contact" className="block hover:text-yellow-300">
+              <a href="#footer" className="block hover:text-yellow-300">
                 Contact
               </a>
             </li>

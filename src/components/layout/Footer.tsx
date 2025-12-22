@@ -17,7 +17,7 @@ import Image from "next/image";
  */
 const Footer = () => {
   return (
-    <section className="relative flex justify-center items-center text-white py-10 px-4 h-fit lg:h-[720px] overflow-hidden">
+    <section id="footer" className="relative flex justify-center items-center text-white py-10 px-4 h-fit lg:h-[720px] overflow-hidden">
       {/* Background image served via next/image (resized + WebP/AVIF) */}
       <Image
         src={dining}
@@ -70,19 +70,45 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex justify-center space-x-4 mt-20">
-          <div className="rounded-full border-white p-3 border-[1px]">
+          <a
+            href="https://www.facebook.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="rounded-full border-white p-3 border-[1px] inline-flex"
+          >
             <Image alt="" src={fb} width={16} height={16} />
-          </div>
+          </a>
 
-          <div className="rounded-full border-white p-3 border-[1px]">
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            className="rounded-full border-white p-3 border-[1px] inline-flex"
+          >
             <Image alt="" src={twitter} width={16} height={16} />
-          </div>
+          </a>
           <div className="rounded-full border-white p-3 border-[1px]">
-            <Image alt="" src={insta} width={16} height={16} />
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex"
+            >
+              <Image alt="" src={insta} width={16} height={16} />
+            </a>
           </div>
-          <div className="rounded-full border-white p-3 border-[1px]">
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="rounded-full border-white p-3 border-[1px] inline-flex"
+          >
             <Image alt="" src={linked} width={16} height={16} />
-          </div>
+          </a>
         </div>
 
         {/* Footer */}

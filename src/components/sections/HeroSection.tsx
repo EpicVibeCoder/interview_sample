@@ -12,6 +12,7 @@ import Image from "next/image";
 const HeroSection = () => {
       return (
             <section
+                  id="hero"
                   className="relative flex h-screen min-h-[667px] overflow-hidden bg-[#BD1F17] justify-center items-end lg:items-center bg-repeat bg-[length:100px_100px] pb-8"
                   style={{ backgroundImage: `url(${ranges.src})` }}
             >
