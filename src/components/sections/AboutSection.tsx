@@ -6,9 +6,11 @@ import burgerImage from "../../assets/burger.png";
 import medal from "../../assets/medal.svg";
 import package1 from "../../assets/package.svg";
 import top_bowl from "../../assets/top_bowl.png";
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
 
 interface FeatureProps {
-  icon: string;
+  icon: StaticImageData;
   title: string;
   description: string;
 }
@@ -67,14 +69,22 @@ const AboutSection = () => {
   return (
     <section id="about" className="bg-white  flex flex-col lg:p-20 lg:px-[10%] relative">
       <div className="hidden lg:block absolute z-10 right-0 top-1/2 ">
-        <img src={top_bowl.src} alt="" className="h-72" />
+        <Image src={top_bowl} alt="" className="h-72 w-auto" sizes="288px" />
       </div>
 
       <div className="flex flex-col lg:flex-row p-4 xs:p-2">
         {/* Image and Badge */}
         <div className=" w-full justify-items-center lg:w-1/2 p-2">
           <div className="relative w-full max-w-[674px]">
-            <img src={burgerImage.src} alt="Burger" className="block w-full h-auto" />
+            <Image
+              src={burgerImage}
+              alt="Burger"
+              width={674}
+              height={674}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="block w-full h-auto"
+              placeholder="blur"
+            />
             <div className="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-lg flex items-center w-[200px] font-semibold font-sans">
               <div className=" w-[50%]  flex items-center justify-center">
                 <svg className="w-full h-full" viewBox="0 0 120 120">
@@ -132,9 +142,9 @@ const AboutSection = () => {
       </div>
       {/* Features Section */}
       <div className="flex flex-col lg:flex-row justify-center items-center p-4 lg:py-10 lg:justify-around w-full">
-        <Feature icon={package1.src} title="Fast Delivery" description="Within 30 minutes" />
-        <Feature icon={medal.src} title="Absolute Dining" description="Best buffet restaurant" />
-        <Feature icon={bag.src} title="Pickup Delivery" description="Grab your food order" />
+        <Feature icon={package1} title="Fast Delivery" description="Within 30 minutes" />
+        <Feature icon={medal} title="Absolute Dining" description="Best buffet restaurant" />
+        <Feature icon={bag} title="Pickup Delivery" description="Grab your food order" />
       </div>
     </section>
   );
@@ -145,7 +155,7 @@ function Feature({ icon, title, description }: FeatureProps) {
   return (
     <div className="flex w-[290px] pb-10 lg:pb-0">
       <div className="flex items-center justify-center w-[70px] h-[70px] bg-white shadow-lg rounded-full p-4 mr-4">
-        <img src={icon} alt="" />
+        <Image src={icon} alt="" width={40} height={40} />
       </div>
       <div className="flex content-center">
         <h4 className=" text-gray-900 text-3xl font-bebas-neue">{title}</h4>
