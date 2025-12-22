@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import bag from "../../assets/bag.svg";
 import burgerImage from "../../assets/burger.png";
 import medal from "../../assets/medal.svg";
@@ -14,8 +17,15 @@ interface FeatureProps {
 
 /**
  * About section with simple tab switching (About/Experience/Contact).
+ *
+ * Client component because it owns UI state (the active tab).
  */
 const AboutSection = () => {
+  // Define valid section types
+  type SectionKey = "About" | "Experience" | "Contact";
+
+  const [activeSection, setActiveSection] = useState<SectionKey>("About");
+
   const percentage = 80;
 
   // Dummy content for each section
@@ -102,40 +112,32 @@ const AboutSection = () => {
           </div>
         </div>
         <div className="w-full lg:w-1/2 p-2">
-          {/* CSS-only tabs (same UX as before, no client JS) */}
-          <div className="border-b border-red-700">
-            <input id="about-tab-about" type="radio" name="about-tab" className="sr-only peer/about" defaultChecked />
-            <input id="about-tab-experience" type="radio" name="about-tab" className="sr-only peer/experience" />
-            <input id="about-tab-contact" type="radio" name="about-tab" className="sr-only peer/contact" />
-
-            <div className="flex space-x-8">
-              <label
-                htmlFor="about-tab-about"
-                className="font-semibold font-inter cursor-pointer text-[#333333] px-4 py-2 peer-checked/about:text-white peer-checked/about:bg-red-700"
-              >
-                About
-              </label>
-              <label
-                htmlFor="about-tab-experience"
-                className="font-semibold font-inter cursor-pointer text-[#333333] px-4 py-2 peer-checked/experience:text-white peer-checked/experience:bg-red-700"
-              >
-                Experience
-              </label>
-              <label
-                htmlFor="about-tab-contact"
-                className="font-semibold font-inter cursor-pointer text-[#333333] px-4 py-2 peer-checked/contact:text-white peer-checked/contact:bg-red-700"
-              >
-                Contact
-              </label>
-            </div>
+          {/* Header Navigation */}
+          <div className="flex space-x-8 border-b border-red-700 ">
+            <button
+              onClick={() => setActiveSection("About")}
+              className={`font-semibold font-inter  ${activeSection === "About" ? "text-white bg-red-700 px-4 py-2" : "text-[#333333] px-4 py-2"}`}
+            >
+              About
+            </button>
+            <button
+              onClick={() => setActiveSection("Experience")}
+              className={`font-semibold font-inter  ${
+                activeSection === "Experience" ? "text-white bg-red-700 px-4 py-2" : "text-[#333333] px-4 py-2"
+              }`}
+            >
+              Experience
+            </button>
+            <button
+              onClick={() => setActiveSection("Contact")}
+              className={`font-semibold font-inter  ${activeSection === "Contact" ? "text-white bg-red-700 px-4 py-2" : "text-[#333333] px-4 py-2"}`}
+            >
+              Contact
+            </button>
           </div>
 
-          {/* Main Text Content */}
-          <div className="w-full pt-10">
-            <div className="hidden peer-checked/about:block">{sectionContent.About}</div>
-            <div className="hidden peer-checked/experience:block">{sectionContent.Experience}</div>
-            <div className="hidden peer-checked/contact:block">{sectionContent.Contact}</div>
-          </div>
+          {/* Main Text Content (Controlled by activeSection) */}
+          <div className="w-full pt-10">{sectionContent[activeSection]}</div>
         </div>
       </div>
       {/* Features Section */}
