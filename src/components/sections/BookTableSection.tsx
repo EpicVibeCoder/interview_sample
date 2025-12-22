@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { FiCalendar } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 /**
  * "Book your table" lead-capture form.
@@ -22,6 +24,37 @@ const BookTableSection = () => {
     date: false,
     people: false,
   });
+
+  // Show a "text-like" date input (with placeholder + custom icon) until focus,
+  // then switch to the native date picker for actual selection.
+  const [dateInputMode, setDateInputMode] = useState<"text" | "date">("text");
+  const dateInputRef = useRef<HTMLInputElement | null>(null);
+
+  const openNativeDatePicker = () => {
+    setDateInputMode("date");
+
+    // Switching `type` can interrupt focus; open the picker on the next frame.
+    window.requestAnimationFrame(() => {
+      const el = dateInputRef.current;
+      if (!el) return;
+
+      el.focus();
+      // Chromium-based browsers support `showPicker()` for date inputs.
+      // Safe to call guarded; unsupported browsers will just ignore this.
+      el.showPicker?.();
+    });
+  };
+
+  const setPeople = (value: number) => {
+    const normalized = Math.max(1, Math.floor(value));
+    setFormData((prev) => ({ ...prev, people: String(normalized) }));
+  };
+
+  const bumpPeople = (delta: 1 | -1) => {
+    const current = Number(formData.people);
+    const safeCurrent = Number.isFinite(current) && current > 0 ? current : 0;
+    setPeople(safeCurrent + delta);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -95,22 +128,74 @@ const BookTableSection = () => {
               />
             </div>
             <div className="flex flex-col lg:grid grid-cols-2 gap-6">
-              <input
-                type="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                className={`bg-transparent border ${errors.date ? "border-red-500" : "border-white"} px-4 py-2 text-sm placeholder-white`}
-                placeholder="MM/DD/YYYY"
-              />
-              <input
-                type="number"
-                name="people"
-                value={formData.people}
-                onChange={handleChange}
-                placeholder="Total People"
-                className={`bg-transparent border ${errors.people ? "border-red-500" : "border-white"} px-4 py-2 text-sm placeholder-white`}
-              />
+              <div className="relative">
+                <input
+                  type={dateInputMode}
+                  name="date"
+                  ref={dateInputRef}
+                  value={formData.date}
+                  onChange={handleChange}
+                  onClick={() => {
+                    // Clicking the "text" version should open the date picker immediately.
+                    if (dateInputMode === "text") openNativeDatePicker();
+                  }}
+                  onFocus={() => {
+                    // Keyboard tab into the field should also open the picker.
+                    if (dateInputMode === "text") openNativeDatePicker();
+                  }}
+                  onBlur={() => {
+                    // Avoid collapsing back to "text" immediately when the browser opens the picker.
+                    window.setTimeout(() => {
+                      const el = dateInputRef.current;
+                      const isFocused = el != null && document.activeElement === el;
+                      if (!isFocused && !formData.date) setDateInputMode("text");
+                    }, 150);
+                  }}
+                  className={`w-full bg-transparent border ${errors.date ? "border-red-500" : "border-white"} px-4 py-2 pr-10 text-sm placeholder-white`}
+                  placeholder="Reservation Date"
+                />
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/80">
+                  <FiCalendar aria-hidden="true" />
+                </span>
+              </div>
+              <div className="relative">
+                <input
+                  type="number"
+                  name="people"
+                  value={formData.people}
+                  onChange={(e) => {
+                    // Keep the state as a string, but normalize to a whole number when possible.
+                    const raw = e.target.value;
+                    if (raw === "") {
+                      setFormData((prev) => ({ ...prev, people: "" }));
+                      return;
+                    }
+                    setPeople(Number(raw));
+                  }}
+                  min={1}
+                  placeholder="Total People"
+                  className={`w-full bg-transparent border ${errors.people ? "border-red-500" : "border-white"} px-4 py-2 pr-12 text-sm placeholder-white`}
+                />
+
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col justify-between">
+                  <button
+                    type="button"
+                    onClick={() => bumpPeople(1)}
+                    className="text-white/80 hover:text-white leading-none"
+                    aria-label="Increase people"
+                  >
+                    <FiChevronUp aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => bumpPeople(-1)}
+                    className=" text-white/80 hover:text-white leading-none"
+                    aria-label="Decrease people"
+                  >
+                    <FiChevronDown aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
             </div>
             <textarea
               name="message"
