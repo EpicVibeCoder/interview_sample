@@ -1,6 +1,7 @@
 import heroImage from "../../assets/hero-image.jpeg";
 import offerImage from "../../assets/Offer.svg";
 import vectorImage from "../../assets/Vector.svg";
+import ranges from "../../assets/ranges.png";
 import Image from "next/image";
 
 /**
@@ -11,8 +12,8 @@ import Image from "next/image";
 const HeroSection = () => {
       return (
             <section
-                  className="relative flex h-screen min-h-[667px] overflow-hidden bg-[#BD1F17] justify-center items-end lg:items-center pb-8
-      bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:28px_28px]"
+                  className="relative flex h-screen min-h-[667px] overflow-hidden bg-[#BD1F17] justify-center items-end lg:items-center bg-repeat bg-[length:100px_100px] pb-8"
+                  style={{ backgroundImage: `url(${ranges.src})` }}
             >
                   <div className="flex z-0 absolute inset-0 bg-gradient-to-r from-[#BD1F17] via-[#A61D13] to-[#8E1B0F] items-center justify-center opacity-90 "></div>
                   <div className="flex max-w-[567px] flex-col lg:flex-row h-[90%] items-center justify-center w-full lg:h-[60%]  lg:w-[80%] px-5 opacity-100 z-10 lg:max-w-[1300px]">
