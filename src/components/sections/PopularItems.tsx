@@ -34,13 +34,13 @@ const PopularItems = () => {
   const carouselRef = useRef<CarouselHandle>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setItemsPerView(window.innerWidth < 1024 ? 1 : 4);
-    };
+    // Use matchMedia instead of a hot resize listener to reduce main-thread work.
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const update = () => setItemsPerView(mql.matches ? 4 : 1);
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    update();
+    mql.addEventListener?.("change", update);
+    return () => mql.removeEventListener?.("change", update);
   }, []);
 
   const goToNext = () => {
