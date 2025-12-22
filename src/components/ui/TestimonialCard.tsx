@@ -1,6 +1,7 @@
 import sideVector from "../../assets/sideVector.svg";
 import quoteImage from "../../assets/quote.svg";
 import type { StaticImageData } from "next/image";
+import Image from "next/image";
 
 type TestimonialCardProps = {
   quote: string;
@@ -42,7 +43,7 @@ const TestimonialCard = ({
               <p className="text-xs font-roboto">{location}</p>
             </div>
             <div className="h-full w-fit border-b-4 border-b-red-800 z-20 absolute right-0">
-              <img src={avatar.src} alt={`${authorName} avatar`} className="w-12 h-12 rounded-full" />
+              <Image src={avatar} alt={`${authorName} avatar`} width={48} height={48} className="w-12 h-12 rounded-full" />
             </div>
           </div>
         </div>
@@ -67,11 +68,12 @@ const TestimonialCard = ({
             aria-label="Play testimonial video"
           >
             {videoThumbnailSrc ? (
-              <img
+              <Image
                 src={videoThumbnailSrc}
                 alt="Video preview"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
+                fill
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="object-cover"
               />
             ) : null}
 

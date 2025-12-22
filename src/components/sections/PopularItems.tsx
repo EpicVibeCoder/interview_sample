@@ -7,9 +7,11 @@ import chicken from "../../assets/chicken.png";
 import fries from "../../assets/fries.png";
 import pizza from "../../assets/pizza.png";
 import Carousel, { CarouselHandle } from "../ui/Carousel";
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
 
 type Item = {
-  image: string;
+  image: StaticImageData;
   title: string;
   description: string;
 };
@@ -23,10 +25,10 @@ const PopularItems = () => {
   const [itemsPerView, setItemsPerView] = useState(4);
 
   const items: Item[] = [
-    { image: burger2.src, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
-    { image: pizza.src, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
-    { image: fries.src, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
-    { image: chicken.src, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
+    { image: burger2, title: "VEGETABLES BURGER", description: "Barbecue Italian cuisine pizza" },
+    { image: pizza, title: "SPECIAL PIZZA", description: "Barbecue Italian cuisine pizza" },
+    { image: fries, title: "SPECIAL FRENCH FRIES", description: "Barbecue Italian cuisine" },
+    { image: chicken, title: "CUISINE CHICKEN", description: "Japanese Cuisine Chicken" },
   ];
 
   const carouselRef = useRef<CarouselHandle>(null);
@@ -52,7 +54,7 @@ const PopularItems = () => {
   return (
     <section id="menu" className="py-16 px-[10%] bg-[#FBF7F2] relative">
       <div className="hidden lg:block absolute z-10 left-0 bottom-5">
-        <img src={bell_pepper.src} alt="" className="h-72" />
+        <Image src={bell_pepper} alt="" className="h-72 w-auto" sizes="288px" />
       </div>
       {/* Header */}
       <div className="mb-12 flex w-full justify-between">
@@ -89,7 +91,14 @@ const PopularItems = () => {
         renderItem={(item) => (
           <div className="flex justify-center h-full px-2">
             <div className="flex flex-col items-center text-center p-6 bg-white w-full h-full">
-              <img src={item.image} alt={item.title} className="w-32 h-32 object-contain mb-4" />
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={128}
+                height={128}
+                className="w-32 h-32 object-contain mb-4"
+                sizes="128px"
+              />
               <div className="w-12 h-1 bg-red-600 mb-4"></div>
               <h3 className="font-bebas-neue text-2xl mb-2">{item.title}</h3>
               <p className="text-gray-600 text-sm">{item.description}</p>

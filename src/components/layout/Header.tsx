@@ -2,8 +2,23 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Icon from "../../assets/icon.svg";
+
+function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  );
+}
+
+function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  );
+}
 
 /**
  * Top navigation for the site.
@@ -70,9 +85,9 @@ function Header() {
         <div className="md:hidden flex items-center">
           <button onClick={toggleMenu} aria-label="Toggle Menu">
             {isOpen ? (
-              <AiOutlineClose className="text-2xl text-white" />
+              <CloseIcon className="w-6 h-6 text-white" />
             ) : (
-              <AiOutlineMenu className="text-2xl text-white" />
+              <MenuIcon className="w-6 h-6 text-white" />
             )}
           </button>
         </div>

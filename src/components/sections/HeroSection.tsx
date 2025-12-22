@@ -1,6 +1,7 @@
 import heroImage from "../../assets/hero-image.jpeg";
 import offerImage from "../../assets/Offer.svg";
 import vectorImage from "../../assets/Vector.svg";
+import Image from "next/image";
 
 /**
  * Home page hero.
@@ -26,7 +27,7 @@ const HeroSection = () => {
             EXPLORE MENU
           </a>
         </div>
-        <div className="h-[50%] lg:h-full lg:w-[60%] opacity-100 lg:mt-0 lg:min-w-[500px] relative">
+        <div className="w-full h-[50%] min-h-[220px] lg:h-full lg:w-[60%] opacity-100 lg:mt-0 lg:min-w-[500px] relative">
           <img
             src={vectorImage.src}
             alt="Saudi cuisine hero image"
@@ -34,14 +35,16 @@ const HeroSection = () => {
             loading="eager"
           />
 
-          <picture className="block w-full h-full">
-            <img
-              src={heroImage.src}
-              alt="Saudi cuisine hero image"
-              className="block w-full h-full object-cover scale-x-[-1] opacity-100"
-              loading="eager"
-            />
-          </picture>
+          {/* LCP image: use next/image for responsive sizing + automatic optimization */}
+          <Image
+            src={heroImage}
+            alt="Saudi cuisine hero image"
+            fill
+            priority
+            placeholder="blur"
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            className="object-cover scale-x-[-1] opacity-100"
+          />
           <div className="w-[120px] h-[120px] object-cover absolute right-2 bottom-2 lg:-right-[60px] lg:bottom-[0px] bg-yellow-500 rounded-full p-2">
             <img src={offerImage.src} alt="Saudi cuisine hero image" width={"100%"} height={"100%"} loading="eager" />
           </div>

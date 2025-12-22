@@ -1,7 +1,36 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FiCalendar, FiChevronDown, FiChevronUp } from "react-icons/fi";
+function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 3v2M16 3v2M4 8h16" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 5h12a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"
+      />
+    </svg>
+  );
+}
+
+function ChevronUpIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M18 15l-6-6-6 6" />
+    </svg>
+  );
+}
+
+function ChevronDownIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+import forkBg from "../../assets/fork.jpeg";
+import Image from "next/image";
 
 /**
  * "Book your table" lead-capture form.
@@ -93,10 +122,19 @@ const BookTableSection = () => {
   };
 
   return (
-    <section id="contact" className="flex items-start justify-center bg-[url('./assets/fork.jpeg')] bg-cover bg-center lg:bg-top text-white py-16 px-8 lg:h-[788px]">
+    <section id="contact" className="relative flex items-start justify-center text-white py-16 px-8 lg:h-[788px] overflow-hidden">
+      <Image
+        src={forkBg}
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-center lg:object-top"
+        placeholder="blur"
+      />
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
       <div className="max-w-7xl w-full grid md:grid-cols-2 ">
         {/* Left Section - Form */}
-        <div className="space-y-10">
+        <div className="space-y-10 relative z-10">
           <div className="text-red-600 font-roboto mb-2 flex items-center">
             <div className="h-[10px] w-[10px] bg-red-600 mr-2" /> Book Now
           </div>
@@ -153,7 +191,7 @@ const BookTableSection = () => {
                   placeholder="Reservation Date"
                 />
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/80">
-                  <FiCalendar aria-hidden="true" />
+                  <CalendarIcon className="w-4 h-4" />
                 </span>
               </div>
               <div className="relative">
@@ -182,7 +220,7 @@ const BookTableSection = () => {
                     className="text-white/80 hover:text-white leading-none"
                     aria-label="Increase people"
                   >
-                    <FiChevronUp aria-hidden="true" />
+                    <ChevronUpIcon className="w-4 h-4" />
                   </button>
                   <button
                     type="button"
@@ -190,7 +228,7 @@ const BookTableSection = () => {
                     className="text-white/80 hover:text-white leading-none"
                     aria-label="Decrease people"
                   >
-                    <FiChevronDown aria-hidden="true" />
+                    <ChevronDownIcon className="w-4 h-4" />
                   </button>
                 </div>
               </div>
