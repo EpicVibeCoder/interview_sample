@@ -1,16 +1,23 @@
-declare module '*.svg' {
-    const content: any;
-    export default content;
+declare module "*.svg" {
+  import type { StaticImageData } from "next/image";
+  const content: StaticImageData;
+  export default content;
 }
-declare module '*.png' {
-    const content: any;
-    export default content;
+
+declare module "*.png" {
+  import type { StaticImageData } from "next/image";
+  const content: StaticImageData;
+  export default content;
 }
-declare module '*.jpg' {
-    const content: any;
-    export default content;
+
+declare module "*.jpg" {
+  import type { StaticImageData } from "next/image";
+  const content: StaticImageData;
+  export default content;
 }
-declare module '*.jpeg' {
-    const content: any;
-    export default content;
+
+declare module "*.jpeg" {
+  import type { StaticImageData } from "next/image";
+  const content: StaticImageData;
+  export default content;
 }

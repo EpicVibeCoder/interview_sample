@@ -26,7 +26,7 @@ function Header() {
             {/* SVG Icon */}
             <div className="w-10 h-10">
               <img
-                src={typeof Icon === "string" ? Icon : Icon.src}
+                src={Icon.src}
                 alt="Restaurant Logo"
                 className="w-full h-full"
               />

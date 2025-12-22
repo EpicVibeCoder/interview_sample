@@ -217,10 +217,10 @@ const TestimonialSection = () => {
   return (
     <section id="testimonials" ref={sectionRef} className="py-16 px-[5%] lg:px-[10%] bg-[#FBF7F2] relative">
       <div className="hidden lg:block absolute z-10 left-0 top-10">
-        <img src={typeof fruit === "string" ? fruit : fruit.src} alt="" className="h-72" />
+        <img src={fruit.src} alt="" className="h-72" />
       </div>
       <div className="hidden lg:block absolute z-10 right-0 bottom-5">
-        <img src={typeof grass === "string" ? grass : grass.src} alt="" className="h-72" />
+        <img src={grass.src} alt="" className="h-72" />
       </div>
 
       {/* Header */}

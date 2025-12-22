@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { FiCalendar } from "react-icons/fi";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiCalendar, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 /**
  * "Book your table" lead-capture form.
@@ -81,8 +80,7 @@ const BookTableSection = () => {
       return;
     }
 
-    // Submit form data (this is where you'd send it to a backend)
-    console.log("Form submitted:", formData);
+    // TODO: send formData to a backend endpoint.
 
     // Reset the form after submission
     setFormData({
@@ -189,7 +187,7 @@ const BookTableSection = () => {
                   <button
                     type="button"
                     onClick={() => bumpPeople(-1)}
-                    className=" text-white/80 hover:text-white leading-none"
+                    className="text-white/80 hover:text-white leading-none"
                     aria-label="Decrease people"
                   >
                     <FiChevronDown aria-hidden="true" />
