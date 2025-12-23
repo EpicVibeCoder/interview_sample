@@ -12,8 +12,8 @@ export const metadata: Metadata = {
       },
       description: "Experience authentic cuisine at Generic Restaurant. Book your table today for a memorable dining experience.",
       keywords: ["Restaurant", "Authentic Cuisine", "Dining", "Food", "Generic Restaurant"],
-      authors: [{ name: "Generic Restaurant" }],
-      creator: "Generic Restaurant",
+      authors: [{ name: "Mir Ashiqul Hossain" }],
+      creator: "Mir Ashiqul Hossain",
       publisher: "Generic Restaurant",
       formatDetection: {
             email: false,
