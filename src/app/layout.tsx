@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Bebas_Neue, Inter, Poppins, Raleway, Roboto } from "next/font/google";
 import "../index.css";
 import icon from "@/assets/icon.svg";
 
@@ -63,6 +64,36 @@ export const metadata: Metadata = {
       },
 };
 
+const bebasNeue = Bebas_Neue({
+      weight: "400",
+      subsets: ["latin"],
+      variable: "--font-bebas-neue",
+});
+
+const poppins = Poppins({
+      weight: ["300", "400", "500", "600", "700"],
+      subsets: ["latin"],
+      variable: "--font-poppins",
+});
+
+const raleway = Raleway({
+      weight: ["300", "400", "500", "600", "700"],
+      subsets: ["latin"],
+      variable: "--font-raleway",
+});
+
+const roboto = Roboto({
+      weight: ["300", "400", "500", "700"],
+      subsets: ["latin"],
+      variable: "--font-roboto",
+});
+
+const inter = Inter({
+      weight: ["300", "400", "500", "600", "700"],
+      subsets: ["latin"],
+      variable: "--font-inter",
+});
+
 export default function RootLayout({
       children,
 }: Readonly<{
@@ -70,13 +101,7 @@ export default function RootLayout({
 }>) {
       return (
             <html lang="en" suppressHydrationWarning>
-                  <head>
-                        <link
-                              href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap"
-                              rel="stylesheet"
-                        />
-                  </head>
-                  <body>
+                  <body className={`${bebasNeue.variable} ${poppins.variable} ${raleway.variable} ${roboto.variable} ${inter.variable}`}>
                         <JsonLd />
                         {children}
                   </body>

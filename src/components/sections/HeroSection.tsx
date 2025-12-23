@@ -28,8 +28,8 @@ const HeroSection = () => {
                               </a>
                         </div>
                         <div className="w-full h-[50%] min-h-[220px] lg:h-full lg:w-[60%] opacity-100 lg:mt-0 lg:min-w-[500px] relative">
-                              <img
-                                    src={vectorImage.src}
+                              <Image
+                                    src={vectorImage}
                                     alt="Saudi cuisine hero image"
                                     className="w-[45px] h-[45px] object-cover absolute -right-0 -top-5 lg:-top-[35px] lg:-right-[30px]"
                                     loading="eager"
@@ -46,7 +46,7 @@ const HeroSection = () => {
                                     className="object-cover scale-x-[-1] opacity-100"
                               />
                               <div className="w-[120px] h-[120px] object-cover absolute right-2 bottom-2 lg:-right-[60px] lg:bottom-[0px] bg-yellow-500 rounded-full p-2">
-                                    <img src={offerImage.src} alt="Saudi cuisine hero image" width={"100%"} height={"100%"} loading="eager" />
+                                    <Image src={offerImage} alt="Saudi cuisine hero image" className="w-full h-full" loading="eager" />
                               </div>
                         </div>
                   </div>
