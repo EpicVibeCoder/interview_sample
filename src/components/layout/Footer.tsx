@@ -113,7 +113,7 @@ const Footer = () => {
 
         {/* Footer */}
         <footer className="text-center mt-6 font-roboto">
-          <p>&copy; 2023 All Rights Reserved</p>
+          <p>&copy; 2025 All Rights Reserved</p>
         </footer>
       </div>
     </section>
