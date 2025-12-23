@@ -21,15 +21,16 @@ const TestimonialSection = dynamic(() =>
 export default function Home() {
   return (
     <>
-      <HomeLoader />
-      <Header />
-      <HeroSection />
-      <AboutSection />
-      <PopularItems />
-      <BookTableSection />
-      <TestimonialSection />
-      <Footer />
-      <SpeedInsights />
+      <HomeLoader>
+        <Header />
+        <HeroSection />
+        <AboutSection />
+        <PopularItems />
+        <BookTableSection />
+        <TestimonialSection />
+        <Footer />
+        <SpeedInsights />
+      </HomeLoader>
     </>
   );
 }

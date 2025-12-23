@@ -47,7 +47,6 @@ const HeroSection = () => {
                               autoAlpha: 1, // Stay visible
                               duration: 2,
                               ease: "power3.out",
-                              delay: 0.5,
                         }
                   );
 
@@ -69,7 +68,7 @@ const HeroSection = () => {
                   gsap.fromTo(
                         offerRef.current,
                         { x: "100vw", rotation: 720, autoAlpha: 1 }, // Start off screen Right, Fully Visible
-                        { x: 0, rotation: 0, autoAlpha: 1, duration: 2.5, ease: "power2.out", delay: 0.5 }
+                        { x: 0, rotation: 0, autoAlpha: 1, duration: 2.5, ease: "power2.out"}
                   );
 
                   // 3. Offer Animation: Scroll Exit (Roll Out)

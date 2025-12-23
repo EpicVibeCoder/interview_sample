@@ -7,7 +7,7 @@ import offerImage from "../../assets/Offer.svg";
 import vectorImage from "../../assets/Vector.svg";
 import ranges from "../../assets/ranges.png";
 
-const HomeLoader = () => {
+const HomeLoader = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
@@ -52,9 +52,12 @@ const HomeLoader = () => {
     return () => {};
   }, []);
 
-  if (!isLoading) return null;
-
-  return <LoadingScreen progress={progress} />;
+  return (
+    <>
+      {isLoading && <LoadingScreen progress={progress} />}
+      {!isLoading && children}
+    </>
+  );
 };
 
 export default HomeLoader;
