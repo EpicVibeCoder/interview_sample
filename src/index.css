@@ -3,25 +3,27 @@
 @tailwind utilities;
 
 /* Prevent accidental horizontal overflow (e.g. wide images) from creating a white gutter on mobile. */
-html,
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 /* Hide the default calendar icon so our custom icon is the only one shown. */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
+    opacity: 0;
 }
 
 /* Hide number input spinners so we can render a consistent custom stepper UI. */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
-
