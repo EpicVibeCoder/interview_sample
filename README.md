@@ -17,7 +17,7 @@ A high-performance, SEO-optimized restaurant landing page built with **Next.js 1
 
 ## 🛠️ The Migration Story: React.js to Next.js
 
-This project was originally a client-side React application. We migrated to **Next.js 15** to unlock superior performance, SEO capabilities, and better developer experience.
+This project was originally a client-side React application. It was migrated to **Next.js 15** to unlock superior performance, SEO capabilities, and better developer experience.
 
 ### 1. Performance Optimization
 
@@ -67,22 +67,22 @@ We implemented an advanced SEO strategy to ensure search engine visibility:
 
 1.    **Clone the repository**
 
-      ```bash
-      git clone https://github.com/your-username/generic-restaurant.git
-      cd generic-restaurant
-      ```
+    ```bash
+    git clone https://github.com/your-username/generic-restaurant.git
+    cd generic-restaurant
+    ```
 
 2.    **Install dependencies**
 
-      ```bash
-      npm install
-      ```
+    ```bash
+    npm install
+    ```
 
 3.    **Run the development server**
 
-      ```bash
-      npm run dev
-      ```
+    ```bash
+    npm run dev
+    ```
 
 4.    Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
