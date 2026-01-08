@@ -45,7 +45,7 @@ const TestimonialSection = () => {
         "You can't go wrong with Chicken Mandi, I had it twice. The chicken was cooked perfectly, juicy & soft (usually mandi chicken is a bit dry). I would definitely recommend it.",
       authorName: "Khalid Al Dawsy",
       location: "Jeddah, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar1,
     },
     {
@@ -53,7 +53,7 @@ const TestimonialSection = () => {
         "Amazing food and excellent service! The atmosphere is perfect for a family dinner. The staff was very welcoming and the food arrived quickly.",
       authorName: "Sarah Ahmed",
       location: "Riyadh, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar2,
     },
     {
@@ -61,7 +61,7 @@ const TestimonialSection = () => {
         "Best restaurant in town! The flavors are authentic and the presentation is outstanding. I've recommended this place to all my friends.",
       authorName: "Mohammed Ali",
       location: "Dammam, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar3,
     },
     {
@@ -69,7 +69,7 @@ const TestimonialSection = () => {
         "I've been coming here for years. Consistently great food and friendly staff. The quality never disappoints, and the prices are very reasonable.",
       authorName: "Fatima Hassan",
       location: "Mecca, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar4,
     },
     {
@@ -77,7 +77,7 @@ const TestimonialSection = () => {
         "The grilled meats are absolutely fantastic! Perfectly seasoned and cooked to perfection. This is now my go-to restaurant for special occasions.",
       authorName: "Omar Abdullah",
       location: "Medina, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar5,
     },
     {
@@ -85,7 +85,7 @@ const TestimonialSection = () => {
         "Outstanding culinary experience! Every dish tells a story of authentic flavors. The dessert selection is particularly impressive.",
       authorName: "Layla Ibrahim",
       location: "Abha, Saudi",
-      videoUrl: "https://www.youtube.com/embed/UTHgr6NLeEw",
+      videoUrl: "https://www.youtube.com/watch?v=emFMHH2Bfvo",
       avatar: avatar6,
     },
   ];
@@ -132,18 +132,7 @@ const TestimonialSection = () => {
     });
   }, []);
 
-  const buildYoutubeEmbedSrc = useCallback((url: string) => {
-    try {
-      const u = new URL(url);
-      u.searchParams.set("autoplay", "1");
-      u.searchParams.set("playsinline", "1");
-      u.searchParams.set("rel", "0");
-      return u.toString();
-    } catch {
-      const separator = url.includes("?") ? "&" : "?";
-      return `${url}${separator}autoplay=1&playsinline=1&rel=0`;
-    }
-  }, []);
+
 
   const getYoutubeId = useCallback((url: string) => {
     try {
@@ -168,6 +157,21 @@ const TestimonialSection = () => {
     }
     return null;
   }, []);
+
+  const buildYoutubeEmbedSrc = useCallback((url: string) => {
+    const videoId = getYoutubeId(url);
+    if (!videoId) {
+      // Fallback: return original URL if we can't extract ID
+      return url;
+    }
+    // Build proper YouTube embed URL
+    const embedUrl = new URL(`https://www.youtube.com/embed/${videoId}`);
+    embedUrl.searchParams.set("autoplay", "1");
+    embedUrl.searchParams.set("playsinline", "1");
+    embedUrl.searchParams.set("rel", "0");
+    embedUrl.searchParams.set("modestbranding", "1");
+    return embedUrl.toString();
+  }, [getYoutubeId]);
 
   const getYoutubeThumbnail = useCallback(
     (url: string) => {
