@@ -76,7 +76,7 @@ const HeroSection = () => {
                     </div>
 
                     {/* LCP Image */}
-                    <Image src={heroImage} alt="Saudi cuisine hero image" fill priority placeholder="blur" sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover scale-x-[-1] opacity-100" />
+                    <Image src={heroImage} alt="Saudi cuisine hero image" fill priority placeholder="blur" sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover scale-x-[-1] opacity-100" quality={72} />
                     
                     {/* 2. Offer Badge: CSS Entry + JS Scroll Effect */}
                     {/* Note: We remove the transition duration once scrolled to prevent lag, but keep it for the intro */}

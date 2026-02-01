@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import LoadingScreen from "../ui/LoadingScreen";
-import heroImage from "../../assets/hero-image.jpeg";
 import offerImage from "../../assets/Offer.svg";
 import vectorImage from "../../assets/Vector.svg";
 import ranges from "../../assets/ranges.png";
@@ -12,7 +11,8 @@ const HomeLoader = ({ children }: { children: React.ReactNode }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const assets = [heroImage.src, offerImage.src, vectorImage.src, ranges.src];
+    // Exclude hero image: Next.js <Image priority> in HeroSection handles it (avoids double download + faster loader)
+    const assets = [offerImage.src, vectorImage.src, ranges.src];
 
     let loadedCount = 0;
     const totalAssets = assets.length;

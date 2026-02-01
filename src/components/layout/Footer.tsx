@@ -19,7 +19,7 @@ const Footer = () => {
     return (
         <section id="footer" className="relative flex justify-center items-center text-white py-10 px-4 h-fit lg:h-[720px] overflow-hidden">
             {/* Background image served via next/image (resized + WebP/AVIF) */}
-            <Image src={dining} alt="" fill sizes="100vw" className="object-cover object-center" placeholder="blur" />
+            <Image src={dining} alt="" fill sizes="100vw" className="object-cover object-center" placeholder="blur" quality={72} />
             <div className="absolute inset-0 bg-black opacity-80" />
             <div className="z-10">
                 {/* Heading */}

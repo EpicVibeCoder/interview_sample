@@ -1,5 +1,3 @@
-import React from "react";
-
 const JsonLd = () => {
       const jsonLd = {
             "@context": "https://schema.org",
